@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (() => {
   const net = require('net');// required for tcp
   const fs = require('fs');
   var unique;
@@ -9,14 +9,14 @@ module.exports = function() {
     socket.write('Content-Type: text/plain');
     socket.end();
 
-    socket.on('data', function(data) {
+    socket.on('data', (data) => {
       unique = Date.now();
       fs.writeFile(__dirname + '/../requests/' + unique + '.txt', data, (err) => {
         if (err) throw err;
       });
     });
   });
-  server.listen(3000, function() {
+  server.listen(3000, () => {
     console.log('server up');
   });
-}();
+})();
